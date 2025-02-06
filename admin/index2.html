@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Upload System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.1.1/compressor.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        #status {
+            margin-top: 15px;
+            padding: 10px;
+            display: none;
+        }
+        .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        .error {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+    </style>
+</head>
+<body>
+    <form id="uploadForm">
+        <div class="form-group">
+            <label for="itemName">Item Name:</label>
+            <input type="text" id="itemName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select id="category" required>
+                <option value="Racks">Racks</option>
+                <option value="Closets">Closets</option>
+                <option value="Summer-Cooler">Summer-Cooler</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="rating">Rating (1-5):</label>
+            <input type="number" id="rating" min="1" max="5" required>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" id="price" required>
+        </div>
+
+        <div class="form-group">
+            <label for="discountedPrice">Discounted Price (Optional):</label>
+            <input type="number" id="discountedPrice">
+        </div>
+
+        <div class="form-group">
+            <label for="inStock">In Stock:</label>
+            <select id="inStock" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="files">Product Images:</label>
+            <input type="file" id="files" accept="image/*" multiple required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Product Description:</label>
+            <textarea id="description" rows="4" required></textarea>
+        </div>
+
+        <button type="submit">Upload Product</button>
+    </form>
+
+    <div id="status"></div>
+
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzp4r5-nGQvBUqO8Y2HVes6fdSWbHwcfMXq_fdi-W14tgiP9j1vonb1ZBZmBIZVK3bxgA/exec';
+
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            uploadFiles();
+        });
+
+        async function uploadFiles() {
+            const fileInput = document.getElementById('files');
+            const files = fileInput.files;
+            
+            // Collect form data
+            const itemName = document.getElementById('itemName').value;
+            const category = document.getElementById('category').value;
+            const rating = document.getElementById('rating').value;
+            const price = document.getElementById('price').value;
+            const discountedPrice = document.getElementById('discountedPrice').value;
+            const inStock = document.getElementById('inStock').value;
+            const description = document.getElementById('description').value;
+            
+            if (files.length === 0) {
+                showStatus('Please select at least one image', false);
+                return;
+            }
+            
+            let uploadPromises = [];
+            
+            for (let file of files) {
+                let compressedFile = await new Promise((resolve) => {
+                    new Compressor(file, {
+                        quality: 0.6,
+                        success(result) {
+                            resolve(result);
+                        }
+                    });
+                });
+
+                let reader = new FileReader();
+                
+                let promise = new Promise((resolve, reject) => {
+                    reader.onload = function(e) {
+                        let base64Data = e.target.result;
+                        
+                        let formData = new FormData();
+                        formData.append('base64Data', base64Data);
+                        formData.append('fileName', compressedFile.name);
+                        formData.append('itemName', itemName);
+                        formData.append('category', category);
+                        formData.append('rating', rating);
+                        formData.append('price', price);
+                        formData.append('discountedPrice', discountedPrice);
+                        formData.append('inStock', inStock);
+                        formData.append('description', description);
+                        
+                        fetch(SCRIPT_URL, {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                resolve('Upload successful for ' + compressedFile.name);
+                            } else {
+                                reject('Upload failed for ' + compressedFile.name);
+                            }
+                        })
+                        .catch(error => reject('Error: ' + error.toString()));
+                    };
+                    
+                    reader.readAsDataURL(compressedFile);
+                });
+                
+                uploadPromises.push(promise);
+            }
+            
+            Promise.allSettled(uploadPromises).then(results => {
+                let messages = results.map(r => r.status === 'fulfilled' ? r.value : r.reason);
+                showStatus(messages.join('\n'), results.every(r => r.status === 'fulfilled'));
+                
+                // Reset form
+                fileInput.value = '';
+                document.getElementById('uploadForm').reset();
+            });
+        }
+
+        function showStatus(message, isSuccess) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.style.display = 'block';
+            statusDiv.className = isSuccess ? 'success' : 'error';
+        }
+    </script>
+</body>
+</html>

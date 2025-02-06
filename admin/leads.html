@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriber List</title>
+    <link rel="stylesheet" href="email.css">
+    <script src="js/leads.js"></script>
+    <head>
+        <!-- Add this to the head of all protected pages -->
+        <script>
+            // auth.js - Add to all protected pages
+            (function() {
+                function checkAuth() {
+                    if (!sessionStorage.getItem('isAuthenticated')) {
+                        window.location.href = 'admin-login.html';
+                    }
+                }
+                
+                // Check on page load
+                window.onload = checkAuth;
+                
+                // Check on back/forward navigation
+                window.onpageshow = function(event) {
+                    if (event.persisted) {
+                        checkAuth();
+                    }
+                };
+                
+                // Global logout function
+                window.logout = function() {
+                    sessionStorage.removeItem('isAuthenticated');
+                    window.location.href = 'admin-login.html';
+                }
+            })();
+        </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-section">
+            <img src="/image/logo.jpg" alt="Logo" class="logo">
+            <h2>Emails</h2>
+        </div>
+        <button class="back-btn" onclick="history.back()">←</button>
+    </nav>
+    
+    <div class="container">
+        <h1>Potential Buyers</h1>
+        <div class="subscription-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody id="subscriber-data">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

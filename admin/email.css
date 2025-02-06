@@ -1,0 +1,118 @@
+:root {
+    --primary-color: #1e1e2d;
+    --secondary-color: #ff5722;
+    --background-color: #12121f;
+    --text-color: #fff;
+    --card-bg: #252537;
+    --hover-color: #ff7043;
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    --border-radius: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-color);
+    padding: 15px 20px;
+    box-shadow: var(--shadow);
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+  
+    height: 50px;
+
+}
+
+.back-btn {
+    order: -1;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.back-btn:hover {
+    background-color: var(--hover-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+h1 {
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+.subscription-list {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    background: var(--primary-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+thead {
+    background: var(--secondary-color);
+}
+
+th {
+    padding: 15px 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+td {
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+tbody tr:hover {
+    background: rgba(255, 87, 34, 0.1);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.status {
+    color: #4CAF50;
+    font-weight: 500;
+}

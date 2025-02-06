@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Gallery</title>
+    <link rel="stylesheet" href="gallery.css">
+    
+
+    <!-- Add this to the head of all protected pages -->
+    <script>
+        // auth.js - Add to all protected pages
+        (function () {
+            function checkAuth() {
+                if (!sessionStorage.getItem('isAuthenticated')) {
+                    window.location.href = 'admin-login.html';
+                }
+            }
+
+            // Check on page load
+            window.onload = checkAuth;
+
+            // Check on back/forward navigation
+            window.onpageshow = function (event) {
+                if (event.persisted) {
+                    checkAuth();
+                }
+            };
+
+            // Global logout function
+            window.logout = function () {
+                sessionStorage.removeItem('isAuthenticated');
+                window.location.href = 'admin-login.html';
+            }
+        })();
+    </script>
+
+  <script src="js/gallery.js"></script>
+
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo-section">
+            <img src="/image/logo.jpg" alt="Logo" class="logo">
+            <h2>Gallery</h2>
+        </div>
+        <button class="back-btn" onclick="history.back()">←</button>
+    </nav>
+
+
+    <h1 class="heading-top"></h1>
+    <div id="loading">Loading products...</div>
+    <div id="gallery" class="gallery"></div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Update the confirmation dialog HTML structure -->
+    <div class="confirm-dialog" id="confirmDialog">
+        <div class="confirm-dialog-content">
+            <h3>Confirm Deletion</h3>
+            <p id="confirmMessage"></p>
+            <div class="confirm-dialog-buttons">
+                <button class="confirm-dialog-btn confirm-no" onclick="closeConfirmDialog(false)">Cancel</button>
+                <button class="confirm-dialog-btn confirm-yes" onclick="closeConfirmDialog(true)">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL POPUP -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <button class="prev" onclick="changeModalSlide(-1)">❮</button>
+            <img id="modalImage">
+            <button class="next" onclick="changeModalSlide(1)">❯</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
