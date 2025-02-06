@@ -1,0 +1,416 @@
+/* Admin Panel Styling */
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color:#f3f3f5;
+    color: #fff;
+}
+
+h1 {
+    text-align: center;
+    color: #f1f1f1;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.product-card {
+    background: #f0f8f7;
+    
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.slideshow-container {
+    position: relative;
+    max-width: 100%;
+}
+
+.product-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+.product-name, .product-description, .product-price, .product-discount, .product-rating {
+    margin: 10px 0;
+    color: #248277;
+}
+
+.product-rating .rating {
+    color: #ffcc00;
+}
+
+button {
+    background-color: #248277;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #248277;
+}
+
+.add-to-cart {
+    background-color: #248277;
+    color: white;
+    border: none;
+    margin-bottom: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-to-cart:hover {
+    background-color: #1e6b5e;
+}
+
+/* MODAL DESIGN */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 80%;
+    display: flex;
+    align-items: center;
+}
+
+.modal img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 8px;
+}
+
+.modal .prev, .modal .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.3);
+    color: black;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.modal .prev:hover, .modal .next:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.modal .prev { left: 20px; }
+.modal .next { right: 20px; }
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+/* Navbar Styling */
+.navbar {
+    width: 90%;
+    max-width: 1100px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #e0f2f1, #ffffff);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+/* Navbar Styling */
+.navbar {
+    width: 90%;
+    max-width: 1100px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #e0f2f1, #ffffff);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    position: relative;
+}
+
+/* Back Button */
+.back-btn {
+    background: none;
+    border: 2px solid #248277;
+    color: #248277;
+    font-size: 18px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.back-btn:hover {
+    background: #248277;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(36, 130, 119, 0.3);
+}
+
+a {
+    text-decoration: none; /* Removes any underline */
+    display: flex; /* Helps align elements properly */
+    align-items: center;
+}
+
+/* Logo */
+.logo {
+    height: 70px;
+    transition: 0.3s;
+}
+
+/* Centering the Logo */
+.navbar .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Cart Icon - Positioned to the Right */
+.cart-container {
+    position: relative;
+}
+
+.cart-icon {
+    font-size: 22px;
+    color: #248277;
+    text-decoration: none;
+    border: 2px solid #248277;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.cart-icon:hover {
+    background: #248277;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(36, 130, 119, 0.3);
+}
+
+/* Cart Count Badge */
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff5722;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+        color:#248277 ;
+        
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 10px;
+        color: #248277;
+    }
+
+    .nav-menu.active {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.heading-top{
+    padding-top: 50px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/* .cart-icon {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0 6px;
+    font-size: 12px;
+    min-width: 15px;
+    text-align: center;
+} */
+/* Sticky Category Bar */
+.category-bar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 8px 0;
+    z-index: 1000;
+}
+
+/* Category Buttons - Minimalist & Stylish */
+.category-btn {
+    background: none;
+    border: 2px solid #248277;
+    color: #248277;
+    font-size: 14px;
+    padding: 6px 14px;
+    margin: 0 5px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.category-btn:hover,
+.category-btn.active {
+    background: #248277;
+    color: #fff;
+    box-shadow: 0 3px 8px rgba(36, 130, 119, 0.3);
+}
+
+
+.product-card.out-of-stock {
+    opacity: 0.7;
+    position: relative;
+}
+
+.out-of-stock-banner {
+    position: absolute;
+    top: 20px;
+    right: -35px;
+    background: #ff4444;
+    color: white;
+    padding: 5px 40px;
+    transform: rotate(45deg);
+    font-size: 0.8em;
+    font-weight: bold;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.out-of-stock .product-image {
+    filter: grayscale(30%);
+}
+
+.out-of-stock .product-name,
+.out-of-stock .product-price,
+.out-of-stock .product-discount,
+.out-of-stock .product-description {
+    color: #666;
+}
+
+/* Style for stock status indicator */
+.stock-status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.in-stock {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.no-stock {
+    background-color: #ff4444;
+    color: white;
+}

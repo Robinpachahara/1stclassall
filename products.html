@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Gallery</title>
+    <link rel="stylesheet" href="products.css">
+    <script src="cart.js"></script>
+    <script src="itemsProduct.js"></script>
+
+</head>
+
+
+<body>
+
+
+    <header class="navbar">
+        <button class="back-btn" onclick="history.back()">&#8592;</button>
+        <a href="index.html"><img src="images/logo.png" alt="Company Logo" class="logo"></a>
+        <div class="cart-container">
+            <a href="cart.html" class="cart-icon">
+                🛒
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+    </header>
+    <!-- Sticky Category Bar -->
+    <div class="category-bar">
+        <button class="category-btn active" onclick="filterProducts('all')">All Products</button>
+        <button class="category-btn" onclick="filterProducts('Closets')">Closets</button>
+        <button class="category-btn" onclick="filterProducts('Racks')">Racks</button>
+        <button class="category-btn" onclick="filterProducts('Summer-Cooler')">Summer Cooler</button>
+    </div>
+
+
+
+
+
+    <h1 class="heading-top"></h1>
+    <div id="loading"></div>
+    <div id="gallery" class="gallery"></div>
+
+    <!-- MODAL POPUP -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <button class="prev" onclick="changeModalSlide(-1)">❮</button>
+            <img id="modalImage">
+            <button class="next" onclick="changeModalSlide(1)">❯</button>
+        </div>
+    </div>
+
+ 
+
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - V.K.P.D Furniture</title>
+    <!-- fontawesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- custom css files -->
+    <!-- <script src="cartOrder.js"></script> -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cart.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <button class="back-btn" onclick="history.back()">&#8592;</button>
+        <a href="index.html">
+            <img src="images/logo.png" alt="Company Logo" class="logo">
+        </a>
+        <a href="index.html" class="home-btn">Home</a>
+        <!-- <a href="products.html" class="product-btn">Products</a> -->
+
+    </header>
+    <!-- header section ends -->
+
+    <!-- cart section starts -->
+    <h1 class="shopping-cart-title">Shopping Cart</h1>
+    <section class="cart-section">
+        <div class="cart-container">
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-summary">
+                <h3>Order Summary</h3>
+                <div class="summary-item">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">₹0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>GST (18%):</span>
+                    <span id="tax">₹0.00</span>
+                </div>
+                <div class="summary-item total">
+                    <span>Grand Total:</span>
+                    <span id="grand-total">₹0.00</span>
+                </div>
+                <!-- <div class="confirm-order">
+                    <button class="confirm-order-btn">Proceed to Checkout</button>
+                </div> -->
+
+                <div class="contact-info">
+                    <p>To place your order, please contact our sales executive:</p>
+                    <div class="contact-buttons">
+                        <button class="contact-btn phone" onclick="showDropdownForm()">
+                            <i class="fas fa-phone"></i>
+                            Call Now
+                        </button>
+                        <a href="https://wa.me/1234567890" class="contact-btn whatsapp" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            WhatsApp
+                        </a>
+                    </div>
+                </div>
+                <div class="dropdown-form" id="dropdownForm" style="display: none;">
+                    <span class="close" onclick="closeModal()"><i class="fas fa-xmark"></i></span>
+                    <h2>Please leave your Phone Number</h2>
+                    <p>In case we are not reachable:</p>
+                    <input type="text" id="contactPhoneNumber" placeholder="Your phone number" maxlength="10">
+                    <!-- In your HTML file -->
+                    <button id="callNowButton" onclick="cart.submitToSheet()">
+                        <i class="fas fa-paper-plane" style="color: white;"></i>
+                    </button><br>
+                    <a href="tel:+91 6396369702" class="contact-btndrop phone " target="_blank">
+                        <!-- <i class="fab fa-phone"></i> -->
+                        Call Now
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!-- cart section ends -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartItems = document.getElementById('cart-items');
+            const items = cart.getItems();
+
+            items.forEach(item => {
+                cartItems.innerHTML += `
+            <div class="cart-item" data-id="${item.id}">
+                <img src="${item.image}" alt="${item.name}">
+                <div class="item-details">
+                    <h3>${item.name}</h3>
+                    <p>${item.description}</p>
+                    <div class="quantity-controls">
+                        <button onclick="cart.updateQuantity('${item.id}', ${item.quantity - 1})">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="cart.updateQuantity('${item.id}', ${item.quantity + 1})">+</button>
+                    </div>
+                    <p class="price">₹${item.price}</p>
+                </div>
+                <button class="remove-item" onclick="cart.removeItem('${item.id}')">×</button>
+            </div>
+        `;
+            });
+
+            updateTotals();
+        });
+
+        function updateTotals() {
+            const items = cart.getItems();
+            const subtotal = items.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.18;
+            const grandTotal = subtotal + tax;
+
+            document.getElementById('subtotal').textContent = `₹${subtotal.toFixed(2)}`;
+            document.getElementById('tax').textContent = `₹${tax.toFixed(2)}`;
+            document.getElementById('grand-total').textContent = `₹${grandTotal.toFixed(2)}`;
+        }
+    </script>
+
+    <script src="cart.js"></script>
+    <script>
+        // Your other inline scripts can go here
+        function showDropdownForm() {
+            document.getElementById("dropdownForm").style.display = "block";
+        }
+        function closeModal() {
+            document.getElementById("dropdownForm").style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>
