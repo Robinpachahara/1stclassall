@@ -2,7 +2,7 @@
 const SHEET_ID = '1cnJ1ebHo2nL-qe1OLuT2ikKQzBNQ4Y6QWGIjZppWObY'; // Add your Google Sheet ID here
 const SHEET_NAME = 'Leads';
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwwwukdCYZitmphXm-DR1I-UqfekhyoSZGonVLa-EO3thpaefo3Ge_rEiBoV4A4eqLl/exec'; // Add your Google Apps Script URL here
-const WHATSAPP_NUMBER = '+91 6396369702'; // Add your WhatsApp number here (with country code)
+const WHATSAPP_NUMBER = '+916396369702'; // Add your WhatsApp number here (with country code)
 
 class Chatbot {
     constructor() {
