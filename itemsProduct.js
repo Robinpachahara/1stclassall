@@ -19,39 +19,43 @@ function groupProductsByDescription(products) {
     return Object.values(grouped);
 }
 
+
 function createProductCard(productGroup) {
     const product = productGroup[0];
-    const isInStock = product.inStock?.toLowerCase() === 'yes';  // Notice the optional chaining
+    const isInStock = product.inStock?.toLowerCase() === 'yes';
 
     const imageSlides = productGroup.map((p, index) =>
         `<img src="${p.fileUrl}" class="product-image" style="display: ${index === 0 ? 'block' : 'none'};">`
     ).join('');
 
     const slideControls = productGroup.length > 1 ? `
-<button class="prev" onclick="changeSlide(this, -1)">❮</button>
-<button class="next" onclick="changeSlide(this, 1)">❯</button>` : '';
+        <button class="prev" onclick="event.stopPropagation(); changeSlide(this, -1)">❮</button>
+        <button class="next" onclick="event.stopPropagation(); changeSlide(this, 1)">❯</button>
+    ` : '';
 
     return `
-<div class="product-card ${!isInStock ? 'out-of-stock' : ''}">
-    ${!isInStock ? '<div class="out-of-stock-banner">Out of Stock</div>' : ''}
-    <div class="slideshow-container">
-        ${imageSlides}
-        ${slideControls}
-    </div>
-    <h3 class="product-name">${product.itemName}</h3>
-    <p class="product-description">${product.description}</p>
-    <p class="product-price">Price: <del>${product.price}</del></p>
-    <p class="product-discount">Discounted Price: <strong>${product.discountedPrice}</strong></p>
-    <p class="product-rating">Rating: <span class="rating">${'★'.repeat(product.rating)}${'☆'.repeat(5 - product.rating)}</span></p>
-    <p><span class="stock-status ${isInStock ? 'in-stock' : 'no-stock'}">
-        ${isInStock ? 'In Stock' : 'Out of Stock'}
-    </span></p>
-    <button class="add-to-cart" onclick="addToCart('${product.fileId}')" ${!isInStock ? 'disabled' : ''}>
-        Add to Cart
-    </button>
-    <button onclick="openModal(0, ${JSON.stringify(productGroup).replace(/"/g, '&quot;')})">View Full Image</button>
-</div>
-`;
+        <div class="product-card ${!isInStock ? 'out-of-stock' : ''}" onclick="window.location.href='product-detail.html?id=${product.fileId}'">
+            ${!isInStock ? '<div class="out-of-stock-banner">Out of Stock</div>' : ''}
+            <div class="slideshow-container">
+                ${imageSlides}
+                ${slideControls}
+            </div>
+            <h3 class="product-name">${product.itemName}</h3>
+            
+            <p class="product-price">Price: <del> ₹${product.price}</del></p>
+            <p class="product-discount">Discounted Price: <strong> ₹${product.discountedPrice}</strong></p>
+            <p class="product-rating">Rating: <span class="rating">${'★'.repeat(product.rating)}${'☆'.repeat(5 - product.rating)}</span></p>
+            <p><span class="stock-status ${isInStock ? 'in-stock' : 'no-stock'}">
+                ${isInStock ? 'In Stock' : 'Out of Stock'}
+            </span></p>
+            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart('${product.fileId}')" ${!isInStock ? 'disabled' : ''}>
+                Add to Cart
+            </button>
+            <button class="view-full-image" onclick="event.stopPropagation(); openModal(0, ${JSON.stringify(productGroup).replace(/"/g, '&quot;')})">
+                View Full Image
+            </button>
+        </div>
+    `;
 }
 
 // At the top of your products.js or within the script tag in products.html
