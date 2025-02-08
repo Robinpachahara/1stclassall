@@ -140,7 +140,7 @@ button:hover {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(96, 182, 182, 0.3);
     color: black;
     padding: 10px 15px;
     cursor: pointer;
@@ -150,7 +150,7 @@ button:hover {
 }
 
 .modal .prev:hover, .modal .next:hover {
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(49, 94, 94, 0.3);
 }
 
 .modal .prev { left: 20px; }
@@ -316,6 +316,7 @@ a {
     padding-top: 50px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
 
 /* .cart-icon {
     position: relative;
